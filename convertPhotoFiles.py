@@ -4,16 +4,12 @@ import os
 PngFile = []
 WebpFile = []
 
-
 def main():
     for file in os.listdir():
-        if file == "cryptog.py" or file == 'key.txt' or file =='decrypt.py' or file =='encrypt.py' or file == "cryptog.exe" or file =='encrypt.exe' or file == 'key.key':
-            continue
         if file.endswith('.png'):# png
             PngFile.append(file)
         if file.endswith('.webp'):# webp
             WebpFile.append(file)
-
 
 def PngToWebp():
     main()
