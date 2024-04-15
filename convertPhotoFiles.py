@@ -10,24 +10,50 @@ def main():
             PngFile.append(file)
         if file.endswith('.webp'):# webp
             WebpFile.append(file)
-
+            
 def PngToWebp():
     main()
+    # 'webptopng' klasörünün varlığını kontrol et ve gerekirse oluştur
+    output_folder = 'webptopng'
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    
     for file in PngFile:
-        image_webp = f"{file.split('.')[0]}.webp"
+        # png dosyasını aç
         im = Image.open(file)
-        im.save(image_webp, format="webp", lossless=True)
+        # Çıktı dosyasının adını belirleyin (aynı dosya adıyla .webp uzantısı)
+        image_webp = f"{file.split('.')[0]}.webp"
+        # Çıktı dosyasını 'webptopng' klasörüne kaydet
+        output_path = os.path.join(output_folder, image_webp)
+        im.save(output_path, format="webp", lossless=True)
+    
+    # Listeyi temizleyin
     PngFile.clear()
     WebpFile.clear()
+
 
 def WebpToPng():
     main()
+    # 'webtopng' klasörünün varlığını kontrol et ve gerekirse oluştur
+    output_folder = 'webtopng'
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    
     for file in WebpFile:
-        image_png = f"{file.split('.')[0]}.png"
+        # webp dosyasını aç
         im = Image.open(file)
-        im.save(image_png, format="png", lossless=True)
+        # Çıktı dosyasının adını belirleyin (aynı dosya adıyla .png uzantısı)
+        image_png = f"{file.split('.')[0]}.png"
+        # Çıktı dosyasını 'webtopng' klasörüne kaydet
+        output_path = os.path.join(output_folder, image_png)
+        im.save(output_path, format="png", lossless=True)
+    
+    # Listeyi temizleyin
     PngFile.clear()
     WebpFile.clear()
+
+
+
 
 
 
