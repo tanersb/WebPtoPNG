@@ -1,15 +1,44 @@
 from PIL import Image
 import os
 
+version ="1.5"
+
 PngFile = []
 WebpFile = []
+TxtFile = []
+NcnFile = []
+
 
 def main():
     for file in os.listdir():
-        if file.endswith('.png'):# png
+        if file.endswith('.png') or file.endswith('.PNG'):# png
             PngFile.append(file)
-        if file.endswith('.webp'):# webp
+        if file.endswith('.webp') or file.endswith('.WEBP'):# webp
             WebpFile.append(file)
+        if file.endswith('.txt') or  file.endswith('.TXT'):
+            TxtFile.append(file)
+        if file.endswith('.ncn') or  file.endswith('.NCN'):
+            NcnFile.append(file)
+	
+
+def TxtToNcn():
+	main()
+	for file in TxtFile:
+		txtname = file
+		os.rename(txtname, f"{txtname.split('.')[0]}.ncn")
+		print("TXT To NCN")
+		print(txtname)
+		
+
+def NcnToTxt():
+	main()
+	for file in NcnFile:
+		ncnname = file
+		os.rename(ncnname, f"{ncnname.split('.')[0]}.txt")
+		print("NCN To TXT")
+		print(ncnname)
+		
+	
             
 def PngToWebp():
     main()
@@ -131,9 +160,34 @@ def JpgToWebpAll():
                 os.remove(webp_filepath)
 
 
+def JpegToJpgAll():
+    for root, dirs, files in os.walk('.'):
+        for file in files:
+            if file.lower().endswith(".jpeg"):
+                print(file)
+                source_file = os.path.join(root, file)
+                target_file = source_file[:-5] + ".jpg"  # "-5" çünkü ".jpeg" 5 karakter
+                image = Image.open(source_file)
+                image.save(target_file)
+                os.remove(source_file)
+
+
+def JpgToJpegAll():
+    for root, dirs, files in os.walk('.'):
+        for file in files:
+            if file.lower().endswith(".jpg"):
+                print(file)
+                source_file = os.path.join(root, file)
+                target_file = source_file[:-5] + ".jpeg"  # "-5" çünkü ".jpeg" 5 karakter
+                image = Image.open(source_file)
+                image.save(target_file)
+                os.remove(source_file)
+
+
 
 while True:
-    chose = input('''
+    chose = input(f'''
+Version:{version}
 PNG to WEBP (Alt Dizin)[1]
 WEBP to PNG (Alt Dizin)[2]
 PNG to WEBP (Tüm Dizin)[3]
@@ -142,7 +196,11 @@ PNG to JPG  (Tüm Dizin)[5]
 JPG to PNG  (Tüm Dizin)[6]
 JPG to WEBP (Tüm Dizin)[7]
 WEBP to JPG (Tüm Dizin)[8]
-:  ''')
+JPEG to JPG (Tüm Dizin)[9]
+JPG to JPEG (Tüm Dizin)[0]
+TXT to NCN (Alt Dizin)[10]
+NCN to TXT (Alt Dizin)[11]
+:''')
     try:
         chose = int(chose)
     except:
@@ -155,8 +213,12 @@ WEBP to JPG (Tüm Dizin)[8]
     elif chose == 6: JpgToPngAll(), print('\nJpgToPngAll')
     elif chose == 7: JpgToWebpAll(), print('\nJpgToWebpAll')
     elif chose == 8: WebpToJpgAll(), print('\nWebpToJpgAll')
+    elif chose == 9: JpegToJpgAll(), print('\nJpegToJpgAll')
+    elif chose == 0: JpgToJpegAll(), print('\nJpgToJpegAll')
+    elif chose == 10: TxtToNcn(), print('\nTxtToNcn')
+    elif chose == 11: NcnToTxt(), print('\nNcnToTxt')
     else:
-        print('\nLütfen 1den 4e kadar giriniz.')
+        print("\nLütfen 0'dan 11'e kadar giriniz.")
 
 
 
