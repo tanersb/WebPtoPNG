@@ -3,7 +3,7 @@ import os
 import shutil
 
 
-version ="1.6"
+version ="1.7"
 
 PngFile = []
 WebpFile = []
