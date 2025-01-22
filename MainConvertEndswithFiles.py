@@ -239,12 +239,16 @@ def deleteEmptyFolders(folder_path):
 
         # Eğer bir klasörse ve içi boşsa, sil
         if os.path.isdir(item_path):
-            if not os.listdir(item_path):
-                print("Deleting empty folder:", item_path)
-                shutil.rmtree(item_path)
-            else:
-                deleteEmptyFolders(item_path)
-
+            try:
+                if not os.listdir(item_path):
+                    print("Deleting empty folder:", item_path)
+                    shutil.rmtree(item_path)
+                else:
+                    deleteEmptyFolders(item_path)  # Klasör doluysa içeriğini kontrol et
+            except PermissionError:
+                print(f"Permission denied: {item_path}")
+            except Exception as e:
+                print(f"Error deleting folder {item_path}: {e}")
 
 while True:
     chose = input(f'''
